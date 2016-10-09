@@ -17,7 +17,6 @@ module.exports = {
     	
         loaders: [
         	{ test: /\.(glsl|vs|fs|frag)$/, loader: 'shader' },
-            { test: /gui\.js$/, loader: 'exports?GUI' },
             { test: /twgl\.js$/, loader: 'exports?twgl!imports?polyfills/raf,polyfills/performance' },
             { test: /twgldemo\.js$/, loader: 'exports?TWGLDemo!imports?twgl' },
             { test: /detector\.js$/, loader: 'exports?Detector' },
@@ -36,9 +35,10 @@ module.exports = {
 	        "raf": "lib/raf",
 	        
 	        "twgldemo": "lib/TWGLDemo",
-	        "twgl": "lib/twgl.min",
+            
+            "datgui": "lib/dat.gui.min",
 
-            "gui": "lib/dat.gui.min",
+	        "twgl": "lib/twgl.min",
 
 	        "detector" : "lib/Detector",
 	        "rstats" : "lib/rStats"

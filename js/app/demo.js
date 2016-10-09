@@ -1,12 +1,12 @@
 define([
     "domready",
     "detector",
-    "gui",
     "rstats",
+    "datgui",
     "twgl",
     "twgldemo"
 
-], function(domReady, Detector, GUI, rStats, twgl, TWGLDemo) {
+], function(domReady, Detector, rStats, dat, twgl, TWGLDemo) {
 
     "use strict";
 
@@ -21,6 +21,12 @@ define([
         then = Date.now(),
         fps = 60,
         fr = 1000 / fps,
+
+        ui_obj = {
+            relief: .005,
+            speed: .1,
+            bump: 3.0
+        },
 
         rstats_obj = {
             values: {
@@ -53,6 +59,9 @@ define([
 
             stats = new rStats(rstats_obj);
 
+            
+            console.log( dat );
+
             demo = new TWGLDemo( document.getElementById("canvas"), vertSrc, fragSrc, textures);
 
             var gl = demo.renderer;
@@ -61,15 +70,15 @@ define([
                   texture1 : { src: "textures/tx1_height.png", mag: gl.NEAREST }
             });
 
-            //ui = new GUI();
+            ui = new dat.GUI();
 
-           /* var folder = ui.addFolder('controls');
-            folder.addColor(ui_controller, "albedoColor").name("albedo color").onChange(update_ui);
-            folder.addColor(ui_controller, "specularColor").name("specular color").onChange(update_ui);
-            folder.add(ui_controller, 'roughness', 0, 1).name("roughness").onChange(update_ui);
-            folder.add(ui_controller, 'albedo', 0, 1).name("albedo").onChange(update_ui);
-            folder.add(ui_controller, 'shininess', 0, 1.5).name("shininess").onChange(update_ui);
-            folder.open();*/
+
+             var folder = ui.addFolder('controls');
+            folder.add(ui_obj, "relief", 0.0, 0.2).name("relief").onChange(update_ui);
+            folder.add(ui_obj, "speed", 0.0, .25).name("speed").onChange(update_ui);
+            folder.add(ui_obj, 'bump', 0.0, 8.0).name("bump").onChange(update_ui);
+           
+            folder.open();
 
 
             then = Date.now();
@@ -137,9 +146,9 @@ define([
                     */
 
                 demo.update(time, {
-                    bump_h: 3.0,
-                    speed: 0.1,
-                    rel: 0.005,
+                    bump_h: ui_obj.bump,
+                    speed: ui_obj.speed,
+                    rel: ui_obj.relief,
                     texture0: textures["texture0"],
                     texture1: textures["texture1"]
                 });

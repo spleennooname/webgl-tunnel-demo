@@ -5,7 +5,7 @@ old-skool demo effect, with TWGL.js.
 ### Techs
 
   * GLSL fragment shader ([tunnel.frag](https://github.com/spleennooname/webgl-tunnel-demo/blob/master/shaders/tunnel.frag) ) fake bumpmapping
-  * AMD support with RequireJS
+  * bundle with Webpack
   * [TWGL.js](https://twgljs.org/) - tiny, efficient WebGL helper Library
 
 ### Credits

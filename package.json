@@ -1,28 +1,27 @@
 {
-  "name": "webg-clubber-demo",
+  "name": "webgl-tunnel-demo",
   "version": "1.0.0",
-  "description": "A WebGL Audio Visualizer demo. Grabbing track from Soundcloud, detect beat&rhythm & redirect output through GLSL shader.",
-  "main": "index.js",
+  "description": "old-skool demo effect, with TWGL.js.",
+  "main": "entry.js",
   "scripts": {
     "pack": "webpack --config webpack.config.js --display-reasons --display-modules"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/spleennooname/webg-clubber-demo.git"
+    "url": "https://github.com/spleennooname/webgl-tunnel-demo.git"
   },
   "keywords": [
     "WebGL",
-    "clubber",
     "twgl",
     "GLSL",
-    "WebAudio"
+    "tunnel"
   ],
   "author": "spleen666@gmail.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/spleennooname/webg-clubber-demo/issues"
+    "url": "https://github.com/spleennooname/webgl-tunnel-demo/issues"
   },
-  "homepage": "https://github.com/spleennooname/webg-clubber-demo",
+  "homepage": "https://github.com/spleennooname/webgl-tunnel-demo",
   "devDependencies": {
     "dat.gui": "^0.6.1",
     "shader-loader": "^1.3.0",

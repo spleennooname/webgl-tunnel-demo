@@ -1,57 +1,101 @@
-var UglifyJsPlugin = require('uglify-js-plugin');
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+var path = require('path');
 
 module.exports = {
 
-    entry: {
-    	"demo": ["app/entry.js"]
-    },
+	entry: {
+		"demo": [
+        "app/entry.js"
+      ]
+	},
 
-    output: {
-    	path: "js",
-        filename: "bundle.js"
-    },
+	output: {
+		path: path.resolve(__dirname, "js"),
+		filename: "bundle.js"
+	},
 
-    devtool: 'source-map',
+	devtool: 'source-map',
 
-    module: {
-    	
-        loaders: [
-        	{ test: /\.(glsl|vs|fs|frag)$/, loader: 'shader' },
-            { test: /twgl\.js$/, loader: 'exports?twgl!imports?polyfills/raf,polyfills/performance' },
-            { test: /twgldemo\.js$/, loader: 'exports?TWGLDemo!imports?twgl' },
-            { test: /detector\.js$/, loader: 'exports?Detector' },
-            { test: /rstats\.js$/, loader: 'exports?rStats' }
-        ]
-    },
+	module: {
 
-    resolve: {
-        
-        modulesDirectories: [ "js","node_modules"],
+		rules: [
 
-        alias: {
-        	
-        	"domready": "lib/require/domReady",
-        	
-	        "raf": "lib/raf",
-	        
-	        "twgldemo": "lib/TWGLDemo",
-            
-            "datgui": "lib/dat.gui.min",
+			{
+				test: /\.(glsl|vs|fs|frag)$/,
+				use: [{
+					loader: 'shader-loader'
+				}]
+            },
 
-	        "twgl": "lib/twgl.min",
+			{
+				test: /twgl\.js$/,
+				use: [{
+					loader: 'exports?twgl!imports?polyfills/raf, polyfills/performance'
+				}]
+      },
 
-	        "detector" : "lib/Detector",
-	        "rstats" : "lib/rStats"
-        }
-    },
+			{
+				test: /twgldemo\.js$/,
+				use: [{
+					loader: 'exports?TWGLDemo!imports?twgl'
+				}]
+      },
 
-    watch: false,
+			{
+				test: /detector\.js$/,
+				use: [{
+					loader: 'exports?Detector'
+				}]
+      },
 
-    plugins: [
-        new UglifyJsPlugin({
-            compress: true, 
-            debug: true 
-        })
+			{
+				test: /rstats\.js$/,
+				use: [{
+					loader: 'exports?rStats'
+				}]
+      }
     ]
-}
 
+	},
+
+	resolve: {
+
+		modules: [
+          path.resolve(__dirname, "js"),
+          "node_modules"
+    ],
+
+		extensions: [".js", ".glsl", ".css"],
+
+		alias: {
+			"domready": "lib/require/domReady",
+			"raf": "lib/raf",
+			"twgldemo": "lib/TWGLDemo",
+			"datgui": "lib/dat.gui.min",
+			"twgl": "lib/twgl.min",
+			"detector": "lib/Detector",
+			"rstats": "lib/rStats"
+		}
+
+	},
+
+	devServer: {
+		contentBase: path.join(__dirname, '.'), // boolean | string | array, static file location
+		compress: true, // enable gzip compression
+		historyApiFallback: true, // true for index.html upon 404, object for multiple paths
+		hot: true, // hot module replacement. Depends on HotModuleReplacementPlugin
+		https: true, // true for self-signed, object for cert authority
+		noInfo: true, // only errors & warns on hot reload
+    port:9090
+	},
+
+	watch: false,
+
+	plugins: [
+    new UglifyJsPlugin({
+			sourceMap: true,
+			warnings: true
+		})
+  ]
+
+}
